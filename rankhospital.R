@@ -34,21 +34,32 @@ rankhospital <- function(state, outcome, num = "best") {
         ## Subset data for relevant state
         
         subset(data, state == data$State) -> data
-
+        
         ## Order data according to condition, then alphabetically by hospital name
+        ## and create var linking outcome to revelant column number
+        
+        outcomeCol <- NULL
+        
         if (outcome == "heart attack") {
                 data[order(data[,11], data[,2]), ] -> data
+                11 -> outcomeCol
         }
         
         if (outcome == "heart failure") {
                 data[order(data[,17], data[,2]), ] -> data
+                17 -> outcomeCol
         }
         
         if (outcome == "pneumonia") {
                 data[order(data[,23], data[,2]), ] -> data
+                23 -> outcomeCol
         }
         
-        ## Define num best and worst
+        ## Subset data to eliminate na's for relevant condition
+        
+        subset(data, is.na(data[,outcomeCol]) == FALSE) -> data
+        
+        ## Define num values for "best" and "worst"
         
         if (num == "best") {
                 1 -> num
