@@ -8,8 +8,6 @@
 
 library(magrittr) # I used magrittr package to simplify syntax a bit in places
 
-## options(warn = -1) ## Silences the warnings from coercing outcome vectors in lines 20-22
-
 rankhospital <- function(state, outcome, num = "best") {
         ## Read outcome data into outcome variable, coerced as chars
         read.csv("outcome-of-care-measures.csv", colClasses = "character") -> data
